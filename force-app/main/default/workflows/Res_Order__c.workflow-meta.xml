@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Status_to_processing</fullName>
+        <field>status__c</field>
+        <literalValue>Verifying</literalValue>
+        <name>Status to processing</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Res_OnOrderCreated</fullName>
+        <actions>
+            <name>Status_to_processing</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Res_Order__c.status__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>The purpose of this workflow is to update the status of the order</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>
