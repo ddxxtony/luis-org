@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>HR Manager 2</name>
+    <queueMembers>
+        <roles>
+            <role>HR_Manager</role>
+        </roles>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>SFDX_Candiate__c</sobjectType>
+    </queueSobject>
+</Queue>
