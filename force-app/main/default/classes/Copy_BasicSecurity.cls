@@ -7,10 +7,8 @@ public class Copy_BasicSecurity {
         isStudent=false; 
         isTeacherA=false;
         isAdmin=false;
-      	 UserRole roleAssignedToUSer =  [select Id, name from UserRole  WHERE Id = : Userinfo.getUserRoleId() limit 1 ];
+      	UserRole roleAssignedToUSer =  [select Id, name from UserRole  WHERE Id = : Userinfo.getUserRoleId() limit 1 ];
 
-
-        	system.debug('RoleAssigned '+ roleAssignedToUSer);
             if(roleAssignedToUSer.Name.equals('SchoolAdmin'))
                         isAdmin = true;
             
@@ -19,8 +17,7 @@ public class Copy_BasicSecurity {
                         
            else if(roleAssignedToUSer.Name.equals('Teacher A'))
                        isTeacherA = true;      
-        
-        
+
     }
     
 }
