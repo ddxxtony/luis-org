@@ -1,0 +1,24 @@
+<apex:page controller="Res_CongratulationsController" sidebar="false" docType="html-5.0" showHeader="false" standardStylesheets="false">
+    <div class="wrapper">
+        <c:Res_HeaderView />
+        
+        <h1>
+            Congratulations your order has been placed   
+        </h1>
+        <apex:outputLink value="Res_OrderDetails?id={!id}">
+            Click here to see the details    
+        </apex:outputLink> 
+    </div>
+    <style>
+        .wrapper {
+        width:80%;
+        max-width: 1200px;
+        heigth: 100vh;
+        margin-left: auto;
+        margin-right:auto;
+        }
+        .address-info {
+        
+        }
+    </style>
+</apex:page>

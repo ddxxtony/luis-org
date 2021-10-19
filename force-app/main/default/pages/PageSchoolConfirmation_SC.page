@@ -1,0 +1,10 @@
+<apex:page sidebar="false" docType="html-5.0" showHeader="false" Controller="PageSchoolConfirmationController_SC" standardStylesheets="false">
+     <c:PageSchoolHeader /> 
+    <div class='text-center mt-5'>
+         <h1>
+      	Tu registro ha sido guardado con éxito  
+     	</h1>
+     	<apex:outputLink value="PageSchoolDetails_SC?id={!id}" >Haz click aquí para ver tu registro</apex:outputLink>  
+    </div>
+
+</apex:page>

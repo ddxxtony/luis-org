@@ -1,0 +1,151 @@
+<apex:page sidebar="false" docType="html-5.0" showHeader="false"   standardStylesheets="false" >
+    <div class='wrapper'>
+        
+        <div class='container'>
+            <div class='col'> 
+                <button class='item'>
+                    <div class='logo'>
+                        <apex:image value="https://c.na85.visual.force.com/resource/1551206732000/screwdriver" width="100" height="55" />
+                    </div>
+                    <div class='description'>
+                        <h3>Report and incident </h3>
+                        <p>Contact Metric Stream FrontDoor to report or intent or issue. </p>
+                    </div>
+                </button> 
+                <button class='item'>
+                    <div class='logo'>
+                        <apex:image value="https://c.na85.visual.force.com/resource/1551206732000/screwdriver" width="100" height="55" />
+                    </div>
+                    <div class='description'>
+                        <h3>Security Requests</h3>
+                        <p>Request Metric Stream access for employeess &#38; contractors.</p>
+                    </div>
+                </button>
+                <button class='item'>
+                    <div class='logo'>
+                        <apex:image value="https://c.na85.visual.force.com/resource/1551206732000/screwdriver" width="100" height="55" />
+                    </div>
+                    <div class='description'>
+                        <h3>New work requests</h3>
+                        <p>Improvement, ideas and sugestions.</p>
+                    </div>
+                </button>
+            </div>
+            <div class='col1'> 
+                <button class='item'>
+                    <div class='logo'>
+                        <apex:image value="https://c.na85.visual.force.com/resource/1551206732000/screwdriver" width="100" height="55" />
+                    </div>
+                    <div class='description'>
+                        <h3>Reporting requests</h3>
+                        <p>Contact eGRC for reporting request &#38; BO Access.</p>
+                    </div>
+                </button>
+                <button class='item'>
+                    <div class='logo'>
+                        <apex:image value="https://c.na85.visual.force.com/resource/1551206732000/screwdriver" width="100" height="55" />
+                    </div>
+                    <div class='description'>
+                        <h3>Library change requests</h3>
+                        <p>Contact eGRC for library change request &#38; box access.</p>
+                    </div>
+                </button>
+            </div>
+            <div class='col'> 
+                <button class='item'>
+                    <div class='logo'>
+                        <apex:image value="https://c.na85.visual.force.com/resource/1551206732000/screwdriver" width="100" height="55" />
+                    </div>
+                    <div class='description'>
+                        <h3>My requests</h3>
+                        <p>My incidents or requests</p>
+                    </div>
+                </button>
+                <button class='item'>
+                    <div class='logo'>
+                        <apex:image value="https://c.na85.visual.force.com/resource/1551206732000/screwdriver" width="100" height="55" />
+                    </div>
+                    <div class='description'>
+                        <h3>Perform self help</h3>
+                        <p>These tools and articles will help you to diagnose your issue</p>
+                    </div>
+                </button>      
+                <button class='item'>
+                    <div class='logo'>
+                        <apex:image value="https://c.na85.visual.force.com/resource/1551206732000/screwdriver" width="100" height="55" />
+                    </div>
+                    <div class='description'>
+                        <h3>CRO info portal</h3>
+                        <p>Access to enterprice, CRO &#38; External information</p>
+                    </div>
+                </button>  
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    
+    
+    <style>
+        
+        * {
+        margin: 0;
+        padding: 0;
+        }
+        
+        .wrapper {
+        display:flex;
+        justify-content:center;
+        height: 100vh;
+        align-items: center;
+        
+        }
+        .container {
+        display:flex;
+        justify-content: space-between;
+        }
+        
+        .col {
+        Justify-content: center;
+        }
+        
+        .item {
+        border-radius: 25px;
+        
+        text-decoration: none;
+        cursor: pointer;
+        border:none;
+        text-decoration: none;
+        
+        background-color: #468499;
+        padding: 20px;
+        display: flex;
+        height: 180px;
+        margin-bottom:20px;
+        margin-top:20px;
+        margin-left:20px;
+        margin-right:20px;
+        
+        }
+        h3 { 
+        color:white;
+        }
+        button:hover {
+        opacity: 0.9; 
+        }
+        p { 
+        color:white;
+        }
+        .item > .description {
+        text-align: left;
+        padding-left: 20px;
+        width: 180px;
+        }
+        
+        .item > .logo {
+        margin-top: auto;
+        margin-bottom: auto;
+        }
+    </style>
+</apex:page>

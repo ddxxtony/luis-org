@@ -1,0 +1,49 @@
+<apex:page controller="Res_OrdersListController" sidebar="false" docType="html-5.0" showHeader="false" standardStylesheets="false">
+    
+    <div class='wrapper'>
+        <c:Res_HeaderView />
+        <h2 class='mb-3'>Listado de ordenes</h2>
+        <apex:outputPanel >
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th> 
+                        <th>Status</th>
+                        <th>Customer</th>
+                        <th>Total</th>
+                        <th>Scheduled Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!ordersList}" var="Ol">
+                        <tr>
+                            <td>
+                                <apex:outputLink value="Res_OrderDetails?id={!Ol.id}" >
+                                    <apex:outputText value="{!Ol.name}" />
+                                </apex:outputLink>
+                            </td>
+                            <td><apex:outputText value="{!Ol.status__c}" /></td>
+                            <td><apex:outputText value="{!Ol.status__c}" /></td>
+                            <td><apex:outputText value="{!Ol.total__c}" /></td>
+                            <td>
+                                <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                    <apex:param value="{!Ol.Scheduled_Time__c}" /> 
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+        </apex:outputPanel>
+    </div>
+ 	<style>
+       .wrapper {
+        	width:80%;
+        	max-width: 1200px;
+        	heigth: 100vh;
+        	margin-left: auto;
+        	margin-right:auto;
+        }
+ 	</style>
+    
+</apex:page>

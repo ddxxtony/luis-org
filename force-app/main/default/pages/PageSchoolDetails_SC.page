@@ -1,0 +1,94 @@
+<apex:page sidebar="false" docType="html-5.0" showHeader="false" Controller="PageSchoolDetailsController_SC" standardStylesheets="false">
+
+    <body>
+ 	<c:PageSchoolHeader /> 
+                   
+    <apex:outputPanel id="inputs">     
+    <div class="pl-5 pt-5 pb-5">
+               <apex:Form >
+                         
+                  <div class="row justify-content-center border mr-4 pt-4 pb-4">
+                     <div class="mr-5 pr-4"> 
+                          
+                              <div class="form-group">
+                                 <label class='d-block'>Name:</label>
+                                 <apex:inputField value="{!schoolRecord.User_Name__c}" html-disabled="true"/>
+                              </div>
+                              <div class="form-group">
+                                <label class='d-block'>Last Name:</label>
+                                 <apex:inputField value="{!schoolRecord.Last_Name__c}" html-disabled="true"/>
+                              </div>
+                            <div class="form-group">
+                                <label class='d-block'>Age:</label>
+                                 <apex:inputField value="{!schoolRecord.Age__c}" html-disabled="true"/>
+                              </div>
+                              <div class="form-group">
+                                 <label class='d-block'>Username:</label>
+                                 <apex:inputField value="{!schoolRecord.User__c}" html-disabled="true"/>
+                              </div>
+                      </div>
+                      <div class="ml-5 pl-4">
+
+                              <div class="form-group">
+                                <label class='d-block'>Email:</label>
+                                 <apex:inputField value="{!schoolRecord.email__c}" html-disabled="true"/>
+                              </div>
+
+                          <apex:outputPanel rendered="{!schoolRecord.recordType.name == 'Students'  && ( schoolSecurity.isAdmin || schoolSecurity.isStudent )}">
+                             <div class="form-group">
+                                  <label class='d-block'>Payment:</label>
+                                 <apex:inputField value="{!schoolRecord.Currency__c}" html-disabled="true"/>
+                             </div> 
+                             <div class="form-group">
+                                <apex:inputCheckbox value="{!schoolRecord.is_scholarship_applied__c}" disabled="true"/>
+                                <label class="ml-3" >Is scholarship applied? </label>
+                            </div>
+                           </apex:outputPanel>
+                        
+                          
+                        <apex:outputPanel rendered="{!schoolRecord.recordType.name == 'Teachers'  && ( schoolSecurity.isAdmin || schoolSecurity.isTeacher )}">
+                            <div class="form-group">
+                               <label class='d-block'>Subject:</label>
+                               <apex:inputField value="{!schoolRecord.Subject__c}" html-disabled="true"/>
+                            </div>
+                            <div class="form-group">
+                               <label class='d-block'>Department:</label>
+                               <apex:inputField value="{!schoolRecord.Department__c}" html-disabled="true"/>
+                            </div>
+                            <div class="form-group">
+                               <label class='d-block'>Monthly salary:</label>
+                               <apex:inputField value="{!schoolRecord.Salary__c}" html-disabled="true"/>
+                            </div>   
+                       </apex:outputPanel>
+                            <div class="form-group">
+                                <label class='d-block' >Comments:</label>
+                                 <apex:inputField value="{!schoolRecord.Comments__c}" html-disabled="true"/>
+                      		</div>
+                      </div>
+                   </div>
+                    <div class="mt-4">   
+                       
+                      <apex:outputLink value="MainPageSchoool_SC?id={!schoolRecord.id}" rendered="{!schoolSecurity.isAdmin}"> 
+                          <button type="button" class="btn btn-primary">Editar</button>
+                         </apex:outputLink> 
+                    </div>
+               </apex:Form>
+    </div>
+  </apex:outputPanel>
+            </body>
+    <style>
+   ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display:flex;
+    }
+   	li > a { 
+     	 text-decoration: none;
+     }
+           	li > a { 
+     	 text-decoration: none;
+     }
+    </style>
+
+</apex:page>

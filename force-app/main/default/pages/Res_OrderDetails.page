@@ -1,0 +1,96 @@
+<apex:page controller="Res_OrderDetailsController" sidebar="false" docType="html-5.0" showHeader="false" standardStylesheets="false">
+    
+    <div class="wrapper">
+        <c:Res_HeaderView />
+        <h2 class='mb-3'>Order details</h2>
+        
+        
+        <div class="border rounded px-4 py-4 mx-4 my-3 d-flex bg-light">
+            <div  style="flex:1">
+                <div class="mb-2">
+                    <h5>City</h5>
+                    <apex:outputField value="{!order.City__c}" /> 
+                </div>
+                <div class="mb-2">
+                    <h5>Street</h5> 
+                    <apex:outputField value="{!order.Street__c}" />
+                </div>
+            </div>
+            
+            <div style="flex:1">
+                <div class="mb-2" >
+                    <h5>Suburb</h5>
+                    <apex:outputField value="{!order.Suburb__c}" />
+                </div>
+                <div class="mb-2">
+                    <h5>State</h5>
+                    <apex:outputField value="{!order.State__c}" />
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <div class="d-flex my-4" >
+            <div style="flex:1">
+                <h5>Scheduled delivery</h5>
+                <apex:outputField value="{!order.Scheduled_Time__c}" />
+            </div>
+            <div style="flex:1">
+                <h5>Order status</h5>
+                <apex:outputField value="{!order.Status__c}" />
+            </div>
+        </div>
+        
+        <h4>Commets</h4>
+        <apex:repeat value="{!notesList}" var="NL" id="notesList">
+            <div class='border rounded py-3 px-4 my-3 mx-4'>
+                <div class='d-flex justify-content-between'>
+                    <h6 class='font-weight-bold'>{!NL.owner.name}</h6>
+                    <apex:outputText value="{0, date, MMMM d','  yyyy}" styleClass="text-muted "> 
+                        <apex:param value="{!NL.createdDate}" /> 
+                    </apex:outputText>
+                </div>
+                
+                <p>
+                    {!NL.body} 
+                </p>
+            </div>
+        </apex:repeat>
+        
+        <apex:outputPanel >
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Menu item</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Item total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!ordersDetails}" var="Od">
+                        <tr>
+                            <td><apex:outputText value="{!Od.Menu_Item__c}" /></td>
+                            <td><apex:outputText value="{!Od.Quantity__c}" /></td>
+                            <td><apex:outputText value="{!Od.Description__c}" /></td>
+                            <td><apex:outputText value="{!Od.Total__c}" /></td> 
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+        </apex:outputPanel>
+        
+        
+        
+    </div>
+    <style>
+        .wrapper {
+        width:80%;
+        max-width: 1200px;
+        heigth: 100vh;
+        margin-left: auto;
+        margin-right:auto;
+        }
+    </style>
+</apex:page>

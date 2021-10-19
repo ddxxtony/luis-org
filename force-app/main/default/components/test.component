@@ -1,0 +1,16 @@
+<apex:component standardController="Contact" >
+    <head>
+
+        <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  />
+        <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
+        <apex:includeScript value="https://code.jquery.com/ui/1.10.3/jquery-ui.js" />
+        <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" />
+	
+    </head>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end bg-dark text-white">
+
+        <div class="pr-2 pt-3">
+             <h4>Welcome   {!$User.FirstName}</h4>
+         </div>
+     </nav>
+</apex:component>

@@ -1,14 +1,13 @@
-public class AccoutBatchProcess implements Database.Batchable<Sobject>{
-    
-    public database.QueryLocator start(Database.BatchableContext ctx){
-        return database.getQueryLocator('SELECT ID FROM Account');
+public class ExtensionController {
+ 
+    private final Account acct;
+     
+     
+    public ExtensionController (ApexPages.StandardController stdController) {
+        this.acct = (Account)stdController.getRecord();
     }
-    
-    public void execute(Database.BatchableContext ctx, List<Sobject> sList){
-        
+ 
+    public String getGreeting() {
+        return 'Hello ' + acct.name + ' (' + acct.id + ')';
     }
-    public void finish(Database.BatchableContext ctx){
-        
-    }
-    
 }

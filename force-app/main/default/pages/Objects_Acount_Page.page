@@ -1,0 +1,237 @@
+<apex:page sidebar="false" docType="html-5.0" showHeader="false" Controller="Objects_Account_Controller" applyHtmlTag="false">
+    <c:Objects_Header />
+    <style>
+    .cursor-pointer{
+      cursor: pointer;
+    }
+    </style>
+    <apex:pageMessages id="showmsg" />
+    <div style="padding-left: 10%; padding-right: 10%; margin-top:15px;">
+        
+        
+        <div style="display:flex; margin-bottom:10px;">
+            
+            <div class="border p-4" style="flex:1; margin-right: 10px;"> 
+                <apex:outputPanel id="AccountFields">
+                    <apex:form id="theFormAccount"> 
+                        
+                        <apex:actionFunction name="SaveAccount" action="{!saveAccount}" >
+                        </apex:actionFunction>
+                        <apex:actionFunction name="ClearAccount" action="{!clearAccountFields}" reRender="showmsg, AccountFields, table" >
+                        </apex:actionFunction>
+                        
+                        <apex:actionFunction name="getRelatedContacts" oncomplete="hideLoadingIcon" action="{!getRelatedContacts}" immediate="true" reRender="showmsg, table" >
+                            <apex:param id="AccountIdToshowDetails" name="AccountIdToshowDetails" value="" />
+                        </apex:actionFunction>
+                        
+                        <h3 class="mb-3">Crear nueva cuenta</h3>   
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group">
+                                <label class='d-block'>Name</label>
+                                <apex:inputText value="{!accountRecord.Name__c}"/>
+                            </div>
+                            
+                            <div class="form-group"> 
+                                <label class='d-block'>Annual Revenue</label>
+                                <apex:inputText value="{!accountRecord.Annual_Revenue__c}"/>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group">
+                                <label class='d-block'>Description</label>
+                                <apex:inputText value="{!accountRecord.Description__c }"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class='d-block'>Web Site</label>
+                                <apex:inputField value="{!accountRecord.Web_site__c}"/>
+                            </div>
+                        </div> 
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group">
+                                <label class='d-block'>Active</label>
+                                <apex:inputCheckbox value="{!accountRecord.Active__c}"/>
+                            </div>
+                            
+                        </div>
+                        <button  onclick="CreateAccount(event)" class="btn btn-primary mt-3">Save</button>
+                        <button  onclick="ClearAccountForm(event)" class="btn btn-danger mt-3">Cancel</button>
+                    </apex:form>
+                </apex:outputPanel> 
+            </div>
+            
+            <div class="border p-4" style="flex:1"> 
+                <apex:outputPanel id="contactFields">
+                    <apex:form id="theFormContact"> 
+                        <apex:actionFunction name="SaveContact" action="{!saveContact}">
+                        </apex:actionFunction>                 
+                        <apex:actionFunction name="ClearContact" action="{!clearContactFields}"  reRender="showmsg, contactFields, table" >
+                        </apex:actionFunction>
+                        
+                        <h3 class="mb-3">Crear Contacto</h3>   
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group">
+                                <label class='d-block'>Name</label>
+                                <apex:inputText value="{!contactRecord.Name__c}"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class='d-block'>Email</label>
+                                <apex:inputText value="{!contactRecord.Email__c}"/>
+                            </div> 
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group"> 
+                                <label class='d-block'>Gender</label>
+                                <apex:inputField value="{!contactRecord.Gender__c}"/>
+                            </div>
+                            <div class="form-group">
+                                <label class='d-block'>Ocupation</label>
+                                <apex:inputText value="{!contactRecord.Occupation__c }"/>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group">
+                                <label class='d-block'>Account</label>
+                                <apex:inputField value="{!contactRecord.ObjectA_Account__c }"/>
+                            </div>
+                            <div class="form-group">
+                                <label class='d-block'>Phone</label>
+                                <apex:inputField value="{!contactRecord.Phone__c}"/>
+                            </div>   
+                        </div>                        
+                        <button  onclick="CreateContact(event)" class="btn btn-primary mt-3">Save</button>
+                        <button  onclick="ClearContactForm(event)" class="btn btn-danger mt-3">Cancel</button>
+                    </apex:form>
+                </apex:outputPanel>
+            </div>
+            
+        </div>
+        
+        
+        
+        <apex:outputPanel id="table">
+            <table class="table table-sm">
+                <thead class="">
+                    <tr>
+                        <th style="vertical-align: middle;"></th>
+                        <th style="vertical-align: middle;">Id</th>
+                        <th style="vertical-align: middle;">Name</th>
+                        <th style="vertical-align: middle;">Active</th>
+                        <th style="vertical-align: middle;">Revenue</th>
+                        <th style="vertical-align: middle;">Web site</th>
+                        <th style="vertical-align: middle;">Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!AccountRecords}" var="AL">
+                        <tr>
+                            <td>
+                                <a  onclick="handleAccountClick('{!AL.id}', event, {!AccountIdToshowDetails != AL.id})"  class="cursor-pointer">
+                                <apex:outputText style="color:green" value="+" rendered="{!AccountIdToshowDetails != AL.id}" />
+                                <apex:outputText style="color:red" value="-" rendered="{!AccountIdToshowDetails == AL.id}" />
+                                </a>
+                            </td>
+                            <td><apex:outputText value="{!AL.name}" /></td>
+                            <td><apex:outputText value="{!AL.Name__c}" /></td>
+                            <td><apex:outputText value="{!IF(AL.Active__c, 'YES', 'NO')}" /></td>
+                            <td><apex:outputText value="{!AL.Annual_Revenue__c}" /></td>
+                            <td><apex:outputText value="{!AL.Web_site__c}" /></td>
+                            
+                            <td>
+                                <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                    <apex:param value="{!AL.Creation_Date__c}" /> 
+                                </apex:outputText></td> 
+                        </tr>
+                        <apex:outputPanel layout="none" rendered="{!AccountIdToshowDetails == AL.id}">
+                            
+                            <tr >
+                                <td colspan="6" >
+                                    <div style="padding-left: 10%; padding-right:10%; padding-top:20px;padding-bottom:20px; ">
+                                        <h5>
+                                            Contacts
+                                        </h5>
+                                        
+                                        <table class="table table-sm table-striped" >
+                                            <thead class="">
+                                                <tr>
+                                                    <th style="vertical-align: middle;">Name</th>
+                                                    <th style="vertical-align: middle;">Gender</th>
+                                                    <th style="vertical-align: middle;">Email</th>
+                                                    <th style="vertical-align: middle;">Ocupation</th>
+                                                    <th style="vertical-align: middle;">Phone</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <apex:repeat value="{!contactList}" var="con">
+                                                    <tr>
+                                                        <td><apex:outputText value="{!con.Name__c}" /></td>
+                                                        <td><apex:outputText value="{!con.Gender__c}" /></td>
+                                                        <td><apex:outputText value="{!con.Email__c}" /></td>
+                                                        <td><apex:outputText value="{!con.Occupation__c}" /></td>
+                                                        <td><apex:outputText value="{!con.Phone__c}" /></td>
+                                                    </tr>
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </apex:outputPanel>
+                        
+                    </apex:repeat>
+                </tbody>
+            </table>
+        </apex:outputPanel>
+    </div>
+    <script>
+    function handleAccountClick(id, event, showContactsTable){
+        //var row = document.getElementById(id);
+        event.preventDefault();
+        if(showContactsTable)
+        	getRelatedContacts(id);
+        else 
+            getRelatedContacts('');
+        
+        
+        /* if (row.style.display === "none") {
+            row.style.display = "table-row";
+         
+        } else {
+            row.style.display = "none";
+        }*/
+        
+    }
+    function CreateAccount (event){
+        console.log('create account');
+        SaveAccount('save');
+    }
+    function ClearAccountForm (event){
+        console.log('clear account form');
+        event.preventDefault();
+        ClearAccount('clean');
+        return false;
+    }
+    
+    function CreateContact (event){
+        console.log('create contact');
+        SaveContact('save');
+    }
+    function ClearContactForm (event){
+        console.log('clear contact form');
+        event.preventDefault();
+        ClearContact('clean');
+        /*this.form.reset();*/
+        return false;
+    }
+    
+    function hideLoadingIcon() {
+    
+    }
+    function showLoadingIcon () {
+    	
+    }
+    
+    
+    </script>
+</apex:page>

@@ -1,0 +1,68 @@
+<apex:page controller="SFDX_Controller"  sidebar="false" showHeader="false"  docType="html-5.0">
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    
+    <apex:form >
+        
+        <div id="test-jquery">
+             
+        </div>
+        <apex:pageMessages id="mesasges"></apex:pageMessages>
+        <apex:image url="{!URLFOR($Resource.images3, 'library.png')}"  width="50" height="50" />
+         
+        <apex:actionFunction name="mergeString" action="{!mergeString}" reRender="merged-string, mesasges" />
+    	<apex:pageBlock title="User details">
+            <apex:pageBlockSection >
+            	<apex:pageBlockSectionItem >
+                    <h1>
+                        name
+                    </h1>
+                 <apex:input value="{!name}" required="true"></apex:input> 
+                </apex:pageBlockSectionItem>
+                  	<apex:pageBlockSectionItem >
+                        <h1>
+                        last NAme
+                    </h1>
+                 <apex:input value="{!lastName}" ></apex:input> 
+                </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem >
+                        <h1>
+                        age 
+                    </h1>
+                    
+                         <apex:outputPanel >
+                              <apex:actionRegion >
+                                <apex:input value="{!age}" > 
+                                 <apex:actionSupport action="{!mergeString2}" event="onchage" reRender="merged-string,mesasges"  />
+                                 </apex:input> 
+                               </apex:actionRegion>
+                        </apex:outputPanel>
+                     
+                 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <div onclick="mergeString();">
+                Click here to save (call action function)
+            </div>
+            
+            <apex:outputPanel >
+            	<div>Click here to save (call action function)</div> 
+                <apex:actionSupport action="{!mergeString2}" event="onclick" reRender="merged-string,mesasges"  />
+            </apex:outputPanel>
+               
+            <apex:outputPanel id="merged-string">
+             	<h1>
+                 {!merged}
+                </h1>
+            </apex:outputPanel>
+               
+                 
+            
+    
+        </apex:pageBlock>  
+    </apex:form>
+    <script>
+     	$('#test-jquery').html('j query is working ');
+    
+    </script>
+</apex:page>

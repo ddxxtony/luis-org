@@ -1,0 +1,74 @@
+<apex:page controller="example" sidebar="false" docType="html-5.0" showHeader="false" standardStylesheets="false">
+    
+    <c:PageSchoolHeader />
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"  />
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
+    
+    <apex:form id="theForm"> 
+        <apex:actionFunction name="getRecords" action="{!queryDB}" oncomplete="updateTable(); return false;"  rerender="tables, scripts" >  </apex:actionFunction>
+        <div class='pt-4 pl-3 pr-3'> 
+            <apex:pageBlock title="Data from School">  
+                <apex:outputPanel id="tables">
+                    <div class='pl-5 pr-5 ml-3 mr-3 pt-4 pb-4'>
+                        <div class="border p-4">
+                            <button  onclick="downloadRecords(event)" class="btn btn-danger mt-3">Submit</button>
+                        </div>
+                        <apex:outputPanel >
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>User name</th>
+                                        <th>Last name</th>
+                                        <th>User</th>
+                                        <th>Age</th>
+                                        <th>Departamento</th>
+                                        <th>Subject</th>
+                                        <th>Registered Day</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                        <apex:repeat value="{!stdSchool}" var="Sc">
+                           <tr>
+                              <td>
+                                 <apex:outputLink value="PageSchoolDetails_SC?id={!Sc.id}" >
+                                    <apex:outputText value="{!Sc.Id}" />
+                                 </apex:outputLink>
+                              </td>
+                              <td><apex:outputText value="{!Sc.User_Name__c}" /></td>
+                              <td><apex:outputText value="{!Sc.Last_Name__c}" /></td>
+                              <td><apex:outputText value="{!Sc.User__c}" /></td>
+    
+                           </tr> 
+                        </apex:repeat>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                    </div>
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </div>
+    </apex:form>
+    <apex:outputPanel id="scripts" layout="block">
+    <script>
+    
+    console.log('Students list ',{!stdSchool})
+    function downloadRecords (event){
+        event.preventDefault();
+        getRecords();	
+        console.log('Students list download', '{!stdSchool}')
+    } 
+    
+    function updateTable (){
+        console.log('Students list update table','{!stdSchool}')
+    }
+     function updateTable2 (){
+        console.log('Students list update table 2222','{!stdSchool}')
+    }
+    </script>
+        </apex:outputPanel>
+</apex:page>

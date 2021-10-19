@@ -1,0 +1,29 @@
+<apex:page controller="testing2"  sidebar="false" showHeader="false" docType="html-5.0">
+    <apex:form >
+        <apex:pageMessages id="messages"></apex:pageMessages>
+        <apex:actionFunction name="updateage" action="{!updateAge}" reRender="age" />
+       
+    		<apex:input value="{!names}" required="true"></apex:input>
+       
+            
+        <apex:outputPanel id="age">
+              <apex:input value="{!lastName}"></apex:input>
+                    <apex:input value="{!age}">
+            
+            </apex:input> 
+            
+      
+            <apex:actionRegion >
+   					<apex:outputPanel >hey yegfdf</apex:outputPanel> 
+                <apex:actionSupport action="{!updateAge2}" event="onclick" reRender="age,age2" />
+                
+            </apex:actionRegion>
+                     
+            
+        </apex:outputPanel> 
+
+        <button type="button"  onclick="updateage();">click here</button>
+        <br/>
+       
+   </apex:form>
+</apex:page>

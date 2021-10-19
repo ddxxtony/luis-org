@@ -1,0 +1,138 @@
+<apex:page sidebar="false" docType="html-5.0" showHeader="false" Controller="SchoolController_SC" standardStylesheets="false">
+      <c:PageSchoolHeader />
+      <apex:outputPanel id="inputs">
+         <div class="pl-5 pt-5 pb-5 pr5">  
+            <apex:Form >
+                
+                <apex:commandLink action="{!URLFOR($Action.Test_child__c.google_link)}" value="My custom button"/>
+                <apex:actionRegion > 	
+                   <apex:selectlist required="true" value="{!selectedRecordType}" size="1" styleClass="mb-3">
+                      <apex:actionSupport event="onchange"  rerender="fields, showmsg" action="{!cleanFields}" />
+                      <apex:selectOptions value="{!recordTypeOptions}" />
+                   </apex:selectlist>
+                </apex:actionRegion>
+                
+                <apex:outputPanel id="fields">  
+                   <apex:pageMessages id="showmsg" />
+                    
+                    <apex:outputPanel rendered="{!(selectedRecordType == 'Students' || selectedRecordType == 'Teachers') && ( schoolSecurity.isAdmin || schoolSecurity.isTeacher ||schoolSecurity.isStudent  ) }">
+                          <apex:actionFunction name="cleanSchoolRecords" immediate="true" action="{!onlyCleanFields}" >
+                             <apex:param assignTo="{!keyIn}" value="cancel"/>
+                          </apex:actionFunction>
+                          <apex:actionFunction name="saveSchoolRecords" action="{!saveRecords}" >
+                             <apex:param assignTo="{!keyIn}" value="save"/>
+                          </apex:actionFunction>
+                          <apex:actionFunction name="goToRecordDetails" action="{!goToDetails}" >
+                             <apex:param assignTo="{!keyIn}" value="cancel"/>
+                          </apex:actionFunction>
+                  <div class="row justify-content-center border mr-4 pt-4 pb-4">
+                     <div class="mr-5 pr-4">
+                        <div class="form-group">
+                           <label class='d-block'>Name:</label>
+                           <apex:inputField value="{!schoolRecord.User_Name__c}"/>
+                        </div>
+                        <div class="form-group">
+                           <label class='d-block'>Last Name:</label>
+                           <apex:inputField value="{!schoolRecord.Last_Name__c}"/>
+                        </div>
+                        <div class="form-group">
+                           <label for="pwd" class='d-block'>Password:</label>
+                           <apex:inputField value="{!schoolRecord.Password__c}"/>
+                        </div>
+                        <div class="form-group">
+                           <label class='d-block'>Age:</label>
+                           <apex:inputField value="{!schoolRecord.Age__c}"/>
+                        </div>
+                        <div class="form-group">
+                           <label class='d-block'>Username:</label>
+                           <apex:inputField value="{!schoolRecord.User__c}"/>
+                        </div>
+                     </div>
+                     <div class="ml-5 pl-4">
+                        <div class="form-group">
+                            <label class='d-block'><span class='text-danger'>*</span>Email:</label>
+                           <apex:inputField value="{!schoolRecord.email__c}" required="true"/>
+                        </div>
+                         
+                        
+                         <apex:outputPanel rendered="{!selectedRecordType == 'Students' && ( schoolSecurity.isAdmin || schoolSecurity.isStudent )}">
+                            <div class="form-group">
+                               <label class='d-block'>Payment:</label>
+                               <apex:inputField value="{!schoolRecord.Currency__c}"/>
+                            </div>
+                            
+                          <!--   <div class="form-group">
+                              	 <apex:inputCheckbox value="{!schoolRecord.is_scholarship_applied__c}"/>
+                               	<label class="ml-3" >Is scholarship applied? </label>
+                             </div> -->
+		
+                             
+                       </apex:outputPanel>
+                         
+                     	<apex:outputPanel rendered="{!selectedRecordType == 'Teachers' && ( schoolSecurity.isAdmin || schoolSecurity.isTeacher ) }">
+                            <div class="form-group">
+                               <label class='d-block'>Subject:</label>
+                               <apex:inputField value="{!schoolRecord.Subject__c}"/>
+                            </div>
+                            <div class="form-group">
+                               <label class='d-block'>Department:</label>
+                               <apex:inputField value="{!schoolRecord.Department__c}"/>
+                            </div>
+                            <div class="form-group">
+                               <label class='d-block'>monthly salary:</label>
+                               <apex:inputField value="{!schoolRecord.Salary__c}"/>
+                            </div>
+                             
+                       </apex:outputPanel>
+                         
+                        <div class="form-group">
+                           <label class='d-block' >Comments:</label>
+                           <apex:inputField value="{!schoolRecord.Comments__c}"/>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mt-4">
+                     <apex:outputPanel rendered="{!recordId==null}">
+                        <button  onclick="cleanRecords(event)" class="btn btn-danger">Cancel</button>
+                     </apex:outputPanel>
+                     <apex:outputPanel rendered="{!recordId!=null}">
+                        <button  onclick="gotToDetails(event)" class="btn btn-danger">Cancel</button>
+                     </apex:outputPanel>
+                     <button  onclick="saveRecords(event)" class="btn btn-primary">Save</button>
+                  </div>
+               </apex:outputPanel>
+                </apex:outputPanel>
+ 
+            </apex:Form>
+         </div>
+      </apex:outputPanel>
+   <style>
+      ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display:flex;	
+      }
+      li > a { 
+      text-decoration: none;
+      }
+      li > a { 
+      text-decoration: none;
+      } 
+   </style>
+   <script>
+      function saveRecords (event){
+             event.preventDefault();
+         	saveSchoolRecords('save');
+         }
+         function cleanRecords (event){
+             event.preventDefault();
+         	cleanSchoolRecords('clean');
+         }
+         function gotToDetails (event){
+             event.preventDefault();
+         	goToRecordDetails('goToDetails');
+         }
+      
+   </script>
+</apex:page>

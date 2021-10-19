@@ -1,0 +1,18 @@
+<apex:component >
+        <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  />
+        <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
+        <apex:includeScript value="https://code.jquery.com/ui/1.10.3/jquery-ui.js" />
+        <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" />
+	
+
+        <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-danger text-white mt-5 mb-5 pb-4 pt-4">
+            
+         <div class='flex-fill'>
+                <apex:outputLink value="Res_HomeView"> <span class="nav-link text-white font-weight-bold">Home</span> </apex:outputLink>
+         </div>
+         <div class="flex-fill justify-content-around d-flex"> 
+              <apex:outputLink value="Res_OrdersListView"><span class="nav-link text-white font-weight-bold">Ordenes</span></apex:outputLink>
+             <apex:outputLink value="Res_CreateOrder"><span class="nav-link text-white font-weight-bold">Nueva orden</span></apex:outputLink>
+        </div>
+     </nav>    	
+</apex:component>

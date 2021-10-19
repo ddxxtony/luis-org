@@ -1,0 +1,329 @@
+<apex:page Controller="Res_CreateOrder" sidebar="false" docType="html-5.0" showHeader="false" >
+    <script type="text/javascript"> 
+    function openLookup(baseURL, width, modified, searchParam){
+        var originalbaseURL = baseURL;
+        var originalwidth = width;
+        var originalmodified = modified;
+        var originalsearchParam = searchParam;
+        
+        var lookupType = baseURL.substr(baseURL.length-3, 3);
+        if (modified == '1') baseURL = baseURL + searchParam;
+        
+        var isCustomLookup = false;
+        
+        // Following "001" is the lookup type for Account object so change this as per your standard or custom object
+        console.log(lookupType + ' sdfsdfsd sdfsdf '+baseURL+ ' searchParam'   );
+        let baseUrlParams = '';
+        if(lookupType == "kup" || lookupType == 'ram'){
+            
+            var urlArr = baseURL.split("&");
+            var txtId = ''; 
+            if(urlArr.length > 2) {
+                urlArr = urlArr[1].split('=');
+                txtId = urlArr[1];
+            }
+            
+            // Following is the url of Custom Lookup page. You need to change that accordingly
+            baseUrlParams = "?txt=" + txtId;
+            
+            // Following is the id of apex:form control "myForm". You need to change that accordingly
+            baseUrlParams = baseUrlParams + "&frm=" + escapeUTF("{!$Component.theForm}");
+            if (modified == '1') {
+                baseUrlParams = baseUrlParams + "&lksearch=" + searchParam;
+            }
+            
+            // Following is the ID of inputField that is the lookup to be customized as custom lookup
+            if(((txtId.indexOf('Customer')> -1)  || (txtId.indexOf('DeliveryGuy') > -1)) ){
+                isCustomLookup = true;
+            }
+            
+        } 
+        
+        if(txtId.indexOf('Customer')> -1)
+            baseURL = '/apex/Res_CustomLookupView' + baseUrlParams
+            
+            else if(txtId.indexOf('DeliveryGuy')> -1)
+                baseURL = '/apex/Res_DeliveryGuyLookupView' + baseUrlParams
+                
+                
+                
+                if(isCustomLookup == true){
+                    openPopup(baseURL, "lookup", 350, 480, "width="+width+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+                }
+        else {
+            if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+            openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+        } 
+    }
+    </script>
+    
+    <div class="wrapper">
+        <c:Res_HeaderView />
+        <h2 class='mb-3'>Order details</h2>
+        
+        <apex:form id="theForm"> 
+            <apex:actionFunction name="addItemToList" immediate="true" action="{!addNewItemToMenuItemsList}" rerender="items" > 
+                <apex:param name="serializedNewMenuItem" assignTo="{!serializedNewMenuItem}"  value=""/> 
+            </apex:actionFunction>
+            <apex:actionFunction name="createNewOrder" action="{!createNewOrder}" rerender="items" > 
+            </apex:actionFunction>
+            <div >   
+                
+                <div class='border-top pl-3 pt-3 mb-2 d-flex mx-4'>
+                    
+                    <div  style="flex:1">
+                     <div class="form-group">
+                        <label class='d-block'>Customer:</label>
+                        <apex:inputField id="Customer" value="{!order.Customer__c}"/>
+                    	</div>
+                                            <div class="form-group">
+                        <label class='d-block'>Delivery Guy:</label>
+                        <apex:inputField id="DeliveryGuy" value="{!order.Customer__c}"/>
+                    </div>
+                   	 </div>  
+                    
+                    <div  style="flex:1">
+                       <div class="form-group">
+                        	<label class='d-block'>Time To be delivered:</label>
+                        	<apex:inputField value="{!order.Scheduled_Time__c}"/> 
+                    	</div>
+                    </div>       
+                </div>   
+                
+                <div class="border rounded px-4 py-4 mx-4 my-4 d-flex bg-light ">
+                    <div  style="flex:1">
+                        
+                        <div class="form-group">
+                            <label class='d-block'>City:</label> 
+                            <apex:inputField value="{!order.City__c}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd" class='d-block'>Street:</label>
+                            <apex:inputField value="{!order.Street__c}"/> 
+                        </div>
+                    </div>
+                    <div  style="flex:1">
+                        <div class="form-group">
+                            <label class='d-block'>Suburb:</label>
+                            <apex:inputField value="{!order.Suburb__c}"/>
+                        </div>
+                        <div class="form-group">
+                            <label class='d-block'>State:</label>
+                            <apex:inputField value="{!order.State__c}"/>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+            
+            <div class="form-group mx-4 mb-4">
+                <label for="comment">Comment:</label>
+                <apex:inputTextArea value="{!note.body}" styleClass="form-control" rows="3" />
+            </div> 
+        </apex:form> 
+        
+        
+        <apex:outputLink target="popup" value="res_MenuView" onclick="window.open('res_MenuView','popup','width=800,height=700'); return false;">See Menu</apex:outputLink>  
+        <h5 class='pt-4'>Items</h5>
+        
+        
+        
+        <div id='addItemForm' class='d-none mt-4 mb-4 pt-3 pb-3 pr-3 pl-3 border'>
+            <apex:form >
+                <div>
+                    <div>
+                        <h4>Choose your combo</h4>
+                        <div>
+                            <select id='plate' onchange="updateSelectsOptions()">
+                            </select>
+                            <select id='mainFood'>
+                            </select>
+                            <select id='complement'>
+                            </select>
+                            <select id='beverage'>
+                            </select>   
+                        </div>
+                    </div>
+                    <div>
+                        <label>How many combos do you want ?</label>
+                        <input onkeyup="handleAmoutChange()" type="number"  min="1" id='amount' placeholder='1' />
+                    </div>
+                    <div>
+                        <label>Combo Price</label>
+                        <p id='comboPrice'></p>
+                    </div>
+                    <div>
+                        <label>Total</label>
+                        <p id='selectionTotal'></p>
+                    </div>
+                    
+                    <div><button onclick="hideFormToAddItem(event)" class="btn btn-primary" >Cancel</button></div>
+                    <div class='d-inline'><button onclick="addNewMenuItem(event)" class="btn btn-primary" >Add</button></div>
+                </div>
+            </apex:form> 
+        </div>
+        
+        
+        <apex:outputPanel id="items">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Menu item</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Total</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!selectedMenuItems}" var="Sc">
+                        <tr>
+                            <td><apex:outputText value="{!Sc.Menu_Item__c}" /></td>
+                            <td><apex:outputText value="{!Sc.Description__c}" /></td>
+                            <td><apex:outputText value="{!Sc.Quantity__c}" /></td>
+                            <td><apex:outputText value="{!Sc.Total__c}" /></td>
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+            <div>
+                <apex:outputText value="{!totalToPay}" />                 
+            </div>
+        </apex:outputPanel>
+        
+        
+        <div class='border-top pl-3 pt-3'>
+            <div><button  onclick="showFormToAddItem(event)" class="btn btn-primary">New Item</button></div>
+        </div>
+        
+        <div class='border-top pl-3 pt-3'>
+            <div><button  onclick="createOrder(event)" class="btn btn-primary">Crear orden</button></div>
+        </div>
+        
+    </div>
+    
+    <style>
+        .wrapper {
+        
+        width:80%;
+        max-width: 1200px;
+        heigth: 100vh;
+        margin-left: auto;
+        margin-right:auto;
+        
+        }
+        
+        .address-info {
+        
+        }
+    </style>
+    
+    <script>	
+    
+    var menuOptionsByName;
+    
+    function handleAmoutChange(){
+        const amount = document.getElementById('amount').value || 1;
+        const amountNumber = Number(amount);
+        if(amountNumber<1) 
+            document.getElementById('amount').value = 1;
+        else
+            document.getElementById('selectionTotal').innerHTML = Number(document.getElementById('comboPrice').innerHTML) * amountNumber;
+    }
+    
+    function removeOptionsFromSelect(selectId){
+        
+        const selectList =  document.getElementById(selectId);
+        for(var i = selectList.options.length - 1 ; i >= 0 ; i--)
+        {
+            selectList.options.remove(i);
+        }
+    }
+    
+    function addOptionsToSelect(selectId, options){
+        
+        const selectList =  document.getElementById(selectId);
+        for (menuOption of options) {
+            var option = document.createElement("option");
+            option.value = menuOption;
+            option.text = menuOption;
+            selectList.appendChild(option);
+        }
+    }
+    
+    function getSelectValue(selectId) {
+        const select = document.getElementById(selectId);
+        return select.options[select.selectedIndex].value;
+    }
+    
+    function updateSelectsOptions () {
+        
+        const plate = getSelectValue('plate');
+        
+        removeOptionsFromSelect('mainFood');
+        removeOptionsFromSelect('complement');
+        removeOptionsFromSelect('beverage');
+        
+        addOptionsToSelect('mainFood', menuOptionsByName[plate].Main_Plate__c.split(',') );
+        addOptionsToSelect('complement', menuOptionsByName[plate].Complement__c.split(',') );
+        addOptionsToSelect('beverage', menuOptionsByName[plate].Beverage__c.split(',') ); 
+        
+        
+        const menuItem = menuOptionsByName[plate]; 
+        document.getElementById('comboPrice').innerHTML = menuItem.Price__c;
+        
+        handleAmoutChange();
+        
+        
+    }
+    
+    function showFormToAddItem () {
+        
+        removeOptionsFromSelect('plate');
+        document.getElementById("addItemForm").classList.remove('d-none');
+        
+        const menuOptionsJson = '{!serializedMenuItems}';
+        const menuOptions = JSON.parse(menuOptionsJson);
+        
+        console.log(menuOptionsJson);
+        
+        menuOptionsByName = menuOptions.reduce((result, menuItem )=>{
+            result[menuItem.Name__c] = menuItem;  
+            return result;
+        }, {});   
+            
+            const plates = Object.keys(menuOptionsByName);
+            addOptionsToSelect('plate', plates);
+            updateSelectsOptions();
+            
+            document.getElementById('amount').value = 1;               
+        } 
+            
+            function addNewMenuItem ( e ) {
+            e.preventDefault();
+            const newMenuItem = {
+            Quantity__c: Number(document.getElementById('amount').value) || 1,
+            Total__c: Number(document.getElementById('selectionTotal').innerHTML), 
+            Description__c: getSelectValue('mainFood')+', '+getSelectValue('complement')+', '+getSelectValue('beverage'), 
+            Menu_Item__c: getSelectValue('plate'),
+        };     
+        
+                                            
+        addItemToList(JSON.stringify(newMenuItem));    
+        hideFormToAddItem(e); 
+    }
+    
+    
+    function hideFormToAddItem (e) {
+        e.preventDefault()
+        document.getElementById("addItemForm").classList.add('d-none');
+    } 
+    
+    function createOrder () {
+        console.log('CREATING ORDER');
+        createNewOrder();
+    }
+    
+    </script>
+</apex:page>

@@ -1,0 +1,42 @@
+<apex:page standardController="Student__c">
+    <apex:pageBlock >
+        <apex:form >
+            <div>
+                <p>Student Name</p>
+                <apex:inputField value="{!Student__c.NameStudent__c}"/>
+            </div>
+            <div>
+                <p>Age</p>
+                <apex:inputField value="{!Student__c.Age__c}"/>
+            </div>
+            <div>
+                <p>Country of birth</p>
+                <apex:inputField value="{!Student__c.CountryOfBirth__c}"/>
+             </div>
+                         <div>
+                <p>Phone</p>
+                <apex:inputField value="{!Student__c.Phone__c}"/>
+             </div>
+                         <div>
+                <p>Address</p>
+                <apex:inputField value="{!Student__c.Address__c}"/>
+             </div>
+                         <div>
+                <p>Gender</p>
+                <apex:inputField value="{!Student__c.Gender__c}"/>
+             </div>
+                         <div>
+                <p>Username</p>
+                <apex:inputField value="{!Student__c.UserName__c}"/>
+             </div>
+             <div>
+                <p>Password</p>
+                <apex:inputField value="{!Student__c.Password__c}"/>
+             </div>
+             <br/>
+             <div>
+                <apex:commandButton action="{!save}" value="save"/>
+             </div>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

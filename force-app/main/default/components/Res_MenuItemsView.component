@@ -1,0 +1,23 @@
+<apex:component controller="Res_MenuItemsController">
+        <c:BoostrapAndJquery />
+
+    <div class='d-flex justify-content-around flex-wrap'>     
+        <apex:repeat value="{!menuElements}" var="me">
+              <div class="card mx-4 my-4" style="width: 18rem;">
+              <div class="card-body">
+                 <h4><apex:outputField styleClass="card-title" value="{!me.Name__c}" /></h4>
+                 <p><apex:outputField styleClass="card-text d-block" value="{!me.Description__c}" /></p>
+                 <h5>Main plate:</h5>
+                 <p><apex:outputField styleClass="card-text d-block" value="{!me.Main_Plate__c}" /></p>
+                                      <h5>Complement</h5>
+                    <p><apex:outputField styleClass="card-text d-block" value="{!me.Complement__c}" /></p>
+                                      <h5>Beverages</h5> 
+                    <p><apex:outputField styleClass="card-text d-block" value="{!me.Beverage__c}" /></p>
+              </div>
+              <div class="card-body" style="flex:1">
+                    <p class='text-right'><apex:outputField styleClass="card-text d-block" value="{!me.Price__c}" /></p>
+              </div>
+            </div>
+        </apex:repeat>
+   </div>
+</apex:component>

@@ -1,0 +1,17 @@
+<apex:page controller="Res_HomeController" sidebar="false" docType="html-5.0" showHeader="false" standardStylesheets="false">
+    <div class="wrapper">
+        <c:Res_HeaderView />
+          <c:Res_MenuItemsView /> 
+      
+
+    </div>
+    <style>
+        .wrapper {
+        width:80%;
+        max-width: 1200px;
+        heigth: 100vh;
+        margin-left: auto;
+        margin-right:auto;
+        }
+    </style>
+</apex:page>

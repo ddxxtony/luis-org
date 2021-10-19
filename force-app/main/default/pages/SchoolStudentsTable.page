@@ -1,0 +1,16 @@
+<apex:page controller="StudentsController">
+<apex:form id="theForm">
+    <apex:pageBlock title="Students data from School">
+        <apex:pageBlockTable value="{!Students}" var="Sc">
+            <apex:column value="{!Sc.Name}" />
+            <apex:column value="{!Sc.User_Name__c}" />
+            <apex:column value="{!Sc.Last_Name__c}" />
+            <apex:column value="{!Sc.User__c}" />
+            <apex:column value="{!Sc.Age__c}" />
+                   <apex:column value="{!Sc.Class__c}" />
+            <apex:column value="{!Sc.Comments__c}" />
+            <apex:column value="{!Sc.Registered_Date__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

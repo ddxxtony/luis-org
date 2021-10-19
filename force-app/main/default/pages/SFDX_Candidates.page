@@ -1,0 +1,38 @@
+<apex:page controller="SFDX_Candidates" sidebar="false">
+    <script type="text/javascript">
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Show Selected Accounts" action="{!processSelected}" rerender="table2"/>
+            </apex:pageBlockButtons>
+             
+            <apex:pageblockSection title="All Accounts" collapsible="false" columns="2">
+             
+                <apex:pageBlockTable value="{!wrapCandidateList}" var="accWrap" id="table" title="All Accounts">
+                    <apex:column >
+                        <apex:facet name="header">
+                            <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!accWrap.selected}" id="inputId"/>
+                    </apex:column>
+                    <apex:column value="{!accWrap.candidate.Full_Name__c}" />
+                </apex:pageBlockTable>          
+                        
+                <apex:pageBlockTable value="{!selectedCandidates}" var="c" id="table2" title="Selected Accounts">
+                    <apex:column value="{!c.Full_Name__c}" headerValue="Candidate Name"/>
+                </apex:pageBlockTable>
+             
+            </apex:pageblockSection>
+        </apex:pageBlock>
+    </apex:form>
+   
+</apex:page>
