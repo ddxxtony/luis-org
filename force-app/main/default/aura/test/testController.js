@@ -1,0 +1,4 @@
+({
+    handleClick : function(cmp, event) {
+    }
+})
