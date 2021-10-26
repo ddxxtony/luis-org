@@ -1,0 +1,7 @@
+<aura:component >
+    <aura:registerEvent name="testingEvent" type="c:testingEvent"/>
+    <div style="padding:30px;background-color:gray">
+        <h1>child</h1>
+        <lightning:button label="Fire Component Event" onclick="{!c.fireEvent}" name="all"></lightning:button>
+    </div>
+</aura:component>

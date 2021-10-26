@@ -1,0 +1,9 @@
+<aura:component >
+	<aura:handler name="testingEvent" event="c:testingEvent" action="{!c.handleEvent}" phase="capture"></aura:handler>
+   
+    <div style="padding:30px;background-color:red">
+        <h1>Parent</h1>
+       <c:childEventC></c:childEventC>
+    </div>
+ 
+</aura:component>

@@ -1,4 +1,20 @@
-<aura:component>
-    <div>Hello</div>
-        
+<aura:component controller="auraTesting">
+     
+
+     <aura:attribute name="accounts" type="Account[]" default="[]"></aura:attribute>
+
+     <lightning:notificationsLibrary aura:id="notifLib"/>
+     <!-- Base variant: Makes a button look like a link -->
+     <lightning:button variant="base" label="Base" title="Base action" onclick="{! c.getAccountsFromApex }"/>
+     <lightning:button variant="base" label="Base" title="Base action" onclick="{! c.getWrapper }"/>
+	
+	<aura:iteration items="{!v.accounts}" var="a">
+          <lightning:card footer="Card Footer" title="{!a.Name}">
+               <p class="slds-p-horizontal_small">
+                   {!a.Id}
+               </p>
+           </lightning:card>
+    </aura:iteration>
+
+
 </aura:component>

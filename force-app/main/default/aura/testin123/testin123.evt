@@ -1,0 +1,7 @@
+<!--c:compEvent-->
+<aura:event type="COMPONENT">
+    <!-- pass context of where the event was fired to the handler. -->
+    <aura:attribute name="context" type="String"/>
+    <aura:attribute name="context2" type="String"/>
+    <aura:attribute name="context3" type="String"/>
+</aura:event>

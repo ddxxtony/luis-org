@@ -5,9 +5,9 @@
     
     <lightning:input type="number" aura:id="op1"  value="{!v.operator1}" label="OP1"  />
     <lightning:input type="number" aura:id="op2"  value="{!v.operator2}" label="OP1"/>
-    <lightning:button label="Get Result" onclick="{!c.getResult}"></lightning:button>
+    <input type="number" aura:id="xx" />
+    <lightning:button label="Get Result" onclick="{!c.getResult}" name="all"></lightning:button>
     <div>
     	{!v.result}
     </div>
-    
 </aura:component>
