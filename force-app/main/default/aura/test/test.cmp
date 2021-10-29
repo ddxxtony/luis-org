@@ -8,13 +8,21 @@
      <lightning:button variant="base" label="Base" title="Base action" onclick="{! c.getAccountsFromApex }"/>
      <lightning:button variant="base" label="Base" title="Base action" onclick="{! c.getWrapper }"/>
 	
+     <lightning:badge label="Label" iconName="doctype:attachment" iconPosition="end"/>
+
+     <lightning:icon iconName="doctype:word" variant="warning" alternativeText="Account text" title="Account"></lightning:icon>
+
 	<aura:iteration items="{!v.accounts}" var="a">
           <lightning:card footer="Card Footer" title="{!a.Name}">
                <p class="slds-p-horizontal_small">
-                   {!a.Id}
+                   {!a.Id} 
                </p>
            </lightning:card>
     </aura:iteration>
+
+    <div class="luis">
+        dsfsfsd
+    </div>
 
 
 </aura:component>

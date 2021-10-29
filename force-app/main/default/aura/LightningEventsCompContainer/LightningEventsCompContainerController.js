@@ -9,6 +9,6 @@
 	}, // Method to  handle application event,
     handleApplicationEvent: function(component, event, helper) {
         var id = component.get('v.id');
-        alert('Application event in comp container'); 
+        alert('Application event in component event section (container)'); 
     }
 })

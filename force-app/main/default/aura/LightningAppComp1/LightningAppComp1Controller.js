@@ -15,7 +15,7 @@
     },
     handleApplicationEventInDEfault: function(component, event, helper) {
         var id = component.get('v.id');
-        alert('Application event in source component default event '+id);
+        alert('Application event in source component children '+id);
     }
     
 })

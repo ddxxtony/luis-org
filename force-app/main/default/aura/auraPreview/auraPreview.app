@@ -1,3 +1,3 @@
-<aura:application extends="force:slds">
+<aura:application extends="force:slds"> 
 <c:test></c:test>
 </aura:application>
