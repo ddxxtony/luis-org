@@ -1,42 +1,16 @@
-<aura:component controller="HomeworkController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:appHostable">
+<aura:component controller="HomeworkController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:appHostable">
     <!-- Attributes -->
-    <aura:attribute name="options" type="List" default="[
-    {'label': 'Create', 'value': 'Create'},
-    {'label': 'Edit', 'value': 'Edit'},
-    {'label': 'Delete', 'value': 'Delete'},
-    {'label': 'Show', 'value': 'Show'},
-    ]" />
-    <aura:attribute name="actionName" type="String" default="" />
-    <aura:attribute name="fields" type="String[]" default="['Name','Site','Description']" />
-    <aura:attribute name="recordId" type="Account" />
-    <aura:attribute name="spinnerRender" type="Boolean" />
+    <aura:attribute name="fields" type="String[]" default="['Id','Name','Site','Description']" />
     <aura:attribute name="showForm" type="Boolean" default="false" />
-    <aura:attribute name="displayList" type="Boolean" default="false" />
-    <aura:attribute name="account" type="List" />
-    <aura:attribute name="recordError" type="String" access="private" />
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <!-- End Attributes -->
-    <aura:renderIf isTrue="{!v.spinnerRender}">
-        <div class="exampleHolder" style="min-width: 100%;">
-            <lightning:spinner alternative-text="Loading" size="small"></lightning:spinner>
-        </div>
-    </aura:renderIf>
-    
-    <aura:renderIf isTrue="{!not(v.spinnerRender)}">
-        <lightning:combobox name="action" label="Action" value="{!v.actionName}" placeholder="Select Action" options="{! v.options }" onchange="{! c.displayList }" aura:id="comboBoxAction" />
-    </aura:renderIf>
-    <aura:renderIf isTrue="{!and(v.displayList, v.actionName != 'Create')}">
-        <div style="padding: 1rem 0rem;">
-            <lightning:combobox name="record" label="Select Record" value="{!v.recordId}" aura:id="comboBoxAcc" placeholder="Select Record to show info" options="{! v.account }"  />
-        </div>
-    </aura:renderIf>
-    <aura:renderIf isTrue="{!v.displayList}">
-        <lightning:button variant="brand-outline" label="Set action" title="Do Action" onclick="{!c.showFormAction}" />
-        <div style="padding-bottom: 1rem;"></div>
-    </aura:renderIf>
-    <aura:renderIf isTrue="{! and(v.actionName == 'Edit', v.showForm)}">
 
-        <lightning:recordEditForm recordId="{!v.recordId}" onload="{!c.onLoadAction}" objectApiName="Account">
+    <lightning:button variant="brand-outline" label="Show Form" title="Do Action" onclick="{!c.showFormAction}"  />
+    <lightning:button variant="brand-outline" label="Hide Form" title="Do Action" onclick="{!c.hideFormAction}"  />
+    
+
+
+    <aura:renderIf isTrue="{!v.showForm}">
+        <lightning:recordEditForm recordId="0011U00001vBFbaQAG" onload="{!c.onLoadAction}" objectApiName="Account">
             <lightning:messages />
             <lightning:outputField fieldName="Id" />
             <lightning:inputField fieldName="Name" />
@@ -44,40 +18,9 @@
             <lightning:inputField fieldName="Description" />
             <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update" />
         </lightning:recordEditForm>
-
+        <aura:set attribute="else">
+            False
+        </aura:set>
     </aura:renderIf>
 
-    <aura:renderIf isTrue="{!and(v.actionName == 'Create', v.showForm)}">
-        <lightning:notificationsLibrary aura:id="notifLib" />
-
-        <lightning:recordForm objectApiName="Account" fields="{!v.fields}" onsuccess="{!c.handleSuccess}" />
-
-    </aura:renderIf>
-
-    <aura:renderIf isTrue="{!and(v.actionName == 'Show', v.showForm)}">
-
-        <lightning:recordForm recordId="{!v.recordId}" objectApiName="Account" columns="1" mode="readOnly" fields="{!v.fields}" />
-
-    </aura:renderIf>
-
-    <aura:renderIf isTrue="{!and(v.actionName == 'Delete', v.showForm)}">
-
-        <force:recordData aura:id="recordHandler" fields="Id" recordId="{!v.recordId}" targetError="{!v.recordError}" recordUpdated="{!c.handleRecordUpdated}" /> 
-
-        <!-- Display the delete record form -->
-        <div class="Delete Record">
-            <lightning:card iconName="action:delete" title="Delete Record">
-                <div class="slds-p-horizontal--small">
-                    <lightning:button label="Delete Record" variant="destructive" onclick="{!c.handleDeleteRecord}" />
-                </div>
-            </lightning:card>
-        </div>
-
-        <!-- Display Lightning Data Service errors, if any -->
-        <aura:if isTrue="{!not(empty(v.recordError))}">
-            <div class="recordError">
-                {!v.recordError}</div>
-        </aura:if>
-
-    </aura:renderIf>
 </aura:component>
