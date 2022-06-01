@@ -1,3 +1,10 @@
 import { LightningElement } from 'lwc';
 
-export default class LwcHooks extends LightningElement {}
+export default class LwcHooks extends LightningElement {   
+
+
+    constructor(){
+        super();
+        
+    }
+}
