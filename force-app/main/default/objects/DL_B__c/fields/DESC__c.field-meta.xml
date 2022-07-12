@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DESC__c</fullName>
-    <description>fdgdgdfg</description>
+    <description>Luis Desceription</description>
     <externalId>false</externalId>
-    <inlineHelpText>dfgdfgdfgdfg</inlineHelpText>
+    <inlineHelpText>Another change Luis</inlineHelpText>
     <label>DESC</label>
     <length>200</length>
     <required>false</required>
