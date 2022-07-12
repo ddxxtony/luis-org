@@ -3,7 +3,7 @@
     <fullName>DESC__c</fullName>
     <description>Luis Desceription</description>
     <externalId>false</externalId>
-    <inlineHelpText>dfgdfgdfgdfg</inlineHelpText>
+    <inlineHelpText>Another change Luis</inlineHelpText>
     <label>DESC</label>
     <length>200</length>
     <required>false</required>
