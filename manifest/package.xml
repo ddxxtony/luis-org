@@ -5,12 +5,12 @@
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Luis</members>
         <name>ApexComponent</name>
     </types>
-    <types>
-        <members>*</members>
-        <name>ApexPage</name>
+    <types>   
+        <members> Luis </members>
+        <name> ApexPage </name>
     </types>
     <types>
         <members>*</members>

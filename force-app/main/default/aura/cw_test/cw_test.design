@@ -1,0 +1,5 @@
+<design:component >
+    <design:attribute name="debug" label="fields" />
+    <design:attribute name="recordFields" label="fields" />
+    <design:attribute name="c__recordFields" label="fields2" />
+</design:component>
