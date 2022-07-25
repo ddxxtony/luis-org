@@ -32,7 +32,7 @@ console.log('code loaded luis');
          "transcriptFields":["case_fake_record_tpye__c"],
         },
         {
-            "label":"another field",
+            "label":"another field",  
             "transcriptFields":["another_field__c"],
            }
     ] ;
@@ -44,6 +44,6 @@ console.log('code loaded luis');
             embedded_svc.snippetSettingsFile.extraPrechatFormDetails[1].value = event.detail.customField;
             // Fire startChat callback.
             event.detail.callback();
-        },
+        },   
         false
     ); 

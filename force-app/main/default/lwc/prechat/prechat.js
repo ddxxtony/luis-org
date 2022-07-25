@@ -20,6 +20,7 @@ export default class Prechat extends BasePrechat {
      * Set the button label and prepare the prechat fields to be shown in the form.
      */
     connectedCallback() {
+        console.log('changes here luis');
         this.startChatLabel = 'Welcome'; 
         this.fields = this._prechatFields.map(field => {
             const { label, name, value, required, maxLength } = field;
@@ -50,7 +51,7 @@ export default class Prechat extends BasePrechat {
                 { 
                     detail: {
                         callback: this.startChat.bind(this, this.fields), 
-                        customField: "Luis From LWC"  
+                        customField: "Luis From  ssdfds sldfsldfsLWC"  
                     }
                 }
             ); 
