@@ -50,7 +50,7 @@ export default class Prechat extends BasePrechat {
                 { 
                     detail: {
                         callback: this.startChat.bind(this, this.fields), 
-                        customField: "Luis From LWC"  
+                        customField: "Luis From  ssdfds sldfsldfsLWC"  
                     }
                 }
             ); 
