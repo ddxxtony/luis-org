@@ -1,0 +1,20 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="container">
+        <div class="tags-input-container">
+            <template for:each={selectedEmails} for:item="item">
+                <div class="tag-item" key={item.key}>
+                    <span class="text">{item.email}</span>
+                    <span class="close" onclick={handleCrossClick} data-key={item.key}>&times;</span> 
+                </div> 
+            </template>
+            <input type="text" class="tags-input" onkeyup={handleKeyPress} placeholder="Type the email and press enter" />
+        </div>
+        <template if:true={showError}>
+            <div style="color:red">
+                Email Address not valid, please enter a valid one
+            </div>
+        </template> 
+
+    </div>
+</template>
