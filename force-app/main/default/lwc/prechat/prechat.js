@@ -20,12 +20,12 @@ export default class Prechat extends BasePrechat {
      * Set the button label and prepare the prechat fields to be shown in the form.
      */
     connectedCallback() {
-        console.log('My other commit Luis doing something ');
-        this.startChatLabel = 'Welcome'; 
+        console.log('My other commit Luis doing something '); 
+        this.startChatLabel = 'Welcome';  
         this.fields = this._prechatFields.map(field => {
-            const { label, name, value, required, maxLength } = field;
-
-            return { label, value, name, required, maxLength };
+            const { label, name, value, required, maxLength } = field; 
+ 
+            return { label, value, name, required, maxLength }; 
         });
         this.namelist = this.fields.map(field => field.name);
     }
